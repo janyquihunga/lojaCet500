@@ -6,7 +6,7 @@ namespace lojaCet500.Dados
     public class DataContext : DbContext
     {
 
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Produto> Produto { get; set; }
 
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
