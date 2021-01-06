@@ -23,7 +23,7 @@ namespace lojaCet500.Controllers
         }
 
         // GET: Produtos/Details/5
-        public async Task<IActionResult> Details(int? id, object _Context)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
