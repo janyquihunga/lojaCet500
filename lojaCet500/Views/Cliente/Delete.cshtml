@@ -1,0 +1,57 @@
+﻿@model lojaCet500.Dados.Entidades.Cliente
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Morada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Morada)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InserirNome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InserirNome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InserirMorada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InserirMorada)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InserirIdade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InserirIdade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

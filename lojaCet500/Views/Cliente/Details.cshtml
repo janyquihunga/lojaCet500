@@ -1,0 +1,54 @@
+﻿@model lojaCet500.Dados.Entidades.Cliente
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Morada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Morada)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InserirNome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InserirNome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InserirMorada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InserirMorada)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InserirIdade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InserirIdade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

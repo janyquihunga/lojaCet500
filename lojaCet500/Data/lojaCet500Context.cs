@@ -15,5 +15,7 @@ namespace lojaCet500.Data
         }
 
         public DbSet<lojaCet500.Dados.Entidades.Produto> Produto { get; set; }
+
+        public DbSet<lojaCet500.Dados.Entidades.Cliente> Cliente { get; set; }
     }
 }

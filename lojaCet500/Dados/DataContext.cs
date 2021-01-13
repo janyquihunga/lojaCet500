@@ -8,6 +8,8 @@ namespace lojaCet500.Dados
 
         public DbSet<Produto> Produto { get; set; }
 
+        public DbSet<Cliente> Cliente { get; set; }
+        public object Products { get; internal set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

@@ -1,25 +1,27 @@
 ﻿using lojaCet500.Dados;
 using lojaCet500.Dados.Entidades;
+using lojaCet500.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using System.Linq; 
 using System.Threading.Tasks;
 
 namespace lojaCet500.Controllers
 {
     public class ProdutosController : Controller
     {
-        public DataContext Context { get; }
+        private readonly IRepository repository;
+        private IRepositiry repositiry;
 
-        public ProdutosController(DataContext context)
+        public ProdutosController(IRepositiry repositiry)
         {
-            Context = context;
+            this.repositiry = repositiry;
         }
 
         // GET: Produtos
-        public async Task<IActionResult> Index()
-        {
-            return View(await Context.Produto.ToListAsync());
+        public IActionResult Index()
+        { 
+            return View(this.repositiry.GetProduct());
         }
 
         // GET: Produtos/Details/5
@@ -30,8 +32,7 @@ namespace lojaCet500.Controllers
                 return NotFound();
             }
 
-            var produto = await Context.Produto
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var produto = this.repositiry.GetProduct(id.Value);
             if (produto == null)
             {
                 return NotFound();
@@ -55,22 +56,22 @@ namespace lojaCet500.Controllers
         {
             if (ModelState.IsValid)
             {
-                Context.Add(produto);
-                await Context.SaveChangesAsync();
+                this.repositiry.AddProduto(produto);
+                await repositiry.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(produto);
         }
 
         // GET: Produtos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produto = await Context.Produto.FindAsync(id);
+            var produto = this.repositiry.GetProduct(id.Value);
             if (produto == null)
             {
                 return NotFound();
@@ -85,21 +86,18 @@ namespace lojaCet500.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Preco,UrlDaIamgem,UltimaCompra,UltimaVenda,Disponivel,Stock")] Produto produto)
         {
-            if (id != produto.Id)
-            {
-                return NotFound();
-            }
+      
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Context.Update(produto);
-                    await Context.SaveChangesAsync();
+                    this.repositiry.UpdateProduto(produto);
+                    await this.repositiry.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.Id))
+                    if (!this.repositiry.ProdutoExiste(produto.Id))
                     {
                         return NotFound();
                     }
@@ -114,15 +112,14 @@ namespace lojaCet500.Controllers
         }
 
         // GET: Produtos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produto = await Context.Produto
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var produto = this.repositiry.GetProduct(id.Value);
             if (produto == null)
             {
                 return NotFound();
@@ -136,15 +133,10 @@ namespace lojaCet500.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produto = await Context.Produto.FindAsync(id);
-            Context.Produto.Remove(produto);
-            await Context.SaveChangesAsync();
+            var produto = this.repositiry.GetProduct(id);
+            this.repositiry.RemoveProduto(produto);
+            await this.repositiry.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProdutoExists(int id)
-        {
-            return Context.Produto.Any(e => e.Id == id);
         }
     }
 }
